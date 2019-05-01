@@ -1,5 +1,7 @@
 package SimpleDotCom;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class SimpleDotComGame {
@@ -10,7 +12,11 @@ public class SimpleDotComGame {
         SimpleDotCom game = new SimpleDotCom();
 
         int startPoint = (int)(Math.random() * 5);
-        int[] locations = {startPoint, startPoint + 1, startPoint + 2};
+        ArrayList<String> locations = new ArrayList<String>();
+        locations.add(Integer.toString(startPoint));
+        locations.add(Integer.toString(startPoint + 1));
+        locations.add(Integer.toString(startPoint + 2));
+
         game.setLocationCells(locations);
         boolean isAlive = true;
 
