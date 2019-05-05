@@ -30,6 +30,7 @@ public class SimpleDotComGame {
             numOfGuesses ++;
             System.out.println(result);
             if (result == "Kill") {
+
                 isAlive = false;
                 System.out.println("You took " + numOfGuesses + " guesses");
             }
