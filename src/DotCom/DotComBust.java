@@ -1,39 +1,68 @@
 package DotCom;
-import java.util.*;
-import SimpleDotCom.GameHelper;
+
+import java.util.ArrayList;
 
 public class DotComBust {
-    private GameHelper helper = new SimpleDotCom.GameHelper();
-    private ArrayList<DotCom> dotComsList = new ArrayList (3);
-    private int numOfGuesses = 0;
+    private GameHelper helper = new GameHelper();
+    private ArrayList <DotCom> dotComsList = new ArrayList<DotCom>();
+    private  int numOfGuesses = 0;
 
-    //TODO: make setUpGame automatically create 3 DotCom objects and set names from User Inputs
-    public void setUpGame () {
-        DotCom one = new DotCom();
-        DotCom two = new DotCom();
-        DotCom three = new DotCom();
-        one.setName("Pets.com");
-        two.setName("eToys.com");
-        three.setName("Go2.com");
+    private void setUpGame() {
+        // first make some dot coms and give them locations
+        DomCom one = new DotCom();
+        DomCom two = new DotCom();
+        DomCom three = new DotCom();
+
+        one.setName("Java.com");
+        two.setName("Python.com");
+        three.setName("CPP.com");
+
         dotComsList.add(one);
         dotComsList.add(two);
         dotComsList.add(three);
 
-        for (DotCom d : dotComsList) {
+        // print brief instructions for user
+        System.out.println("Your goal is to sink three dotcoms");
+        System.out.println("Java.com, Paython.com, and CPP.com");
+        System.out.println("Try to sink all of them");
+
+        // ask GameHelper to provide locations for all DotCom objects
+        for (DotCom dotComToSet : dotComsList) {
             ArrayList <String> newLocations = helper.placeDotCom(3);
-            d.setLocationCells(newLocations);
+            dotComToSet.setLocationCells(newLocations);
         }
-    }
-
-    public void startPlaying () {
 
     }
-
-    public void checkUserGuess () {
+    private void startPlaying() {
+        while ( !dotComsList.isEmpty()) {
+            String userGuess = helper.getUserInput("Enter a guess");
+            checkUserGuess();
+        }
+        finishGame();
+    }
+    private void checkUserGuess(String userGuess) {
+        numOfGuesses ++;
+        String result = "miss";
+        for (int x = 0; x < dotComsList.size(); x++) {
+            result = dotComsList.get(x).checkYourself(userGuess);
+            if (result.equals("hit")){
+                break;
+            }
+            if (result.equals("kill")) {
+                dotComsList.remove(x);
+                break;
+            }
+        }
+        System.out.println(result);
 
     }
+    private void finishGame() {
+        System.out.println("All Dot Com are dead! Your stock is now worthless.");
+    }
 
-    public void finishGame () {
-
+    public static void main () {
+        DotComBust game = new DotComBust();
+        game.setUpGame();
+        game.startPlaying();
     }
 }
